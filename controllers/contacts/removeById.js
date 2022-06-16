@@ -1,17 +1,18 @@
-const contacts = require("../../models");
+const Contact = require("../../models");
+// const contacts = require("../../models");
 
 const { generateError } = require("../../helpers");
 
 const removeById = async (req, res) => {
-  const { contactId } = req.params;
+  // const { contactId } = req.params;
 
-  const result = await contacts.removeContact(contactId);
+  // const result = await contacts.removeContact(contactId);
 
-  if (!result) {
-    throw generateError(404);
-  }
+  // if (!result) {
+  //   throw generateError(404);
+  // }
 
-  res.json({ message: "Contact deleted" });
+  // res.json({ message: "Contact deleted" });
 };
 
 module.exports = removeById;
