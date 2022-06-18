@@ -6,7 +6,6 @@ const getById = async (req, res) => {
   const { contactId } = req.params;
 
   const result = await Contact.findById(contactId, "-createdAt -updatedAt");
-  console.log(result);
 
   if (!result) {
     throw generateError(404);
