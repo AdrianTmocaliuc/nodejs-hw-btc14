@@ -9,18 +9,13 @@ const contactSchema = Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, "Set name for contact"],
     },
     email: {
       type: String,
-      required: true,
-      unique: true,
-      match: emailRegexp,
     },
     phone: {
       type: String,
-      required: true,
-      unique: true,
     },
     favorite: {
       type: Boolean,
@@ -42,7 +37,6 @@ const schemas = {
   verifyContact,
 };
 const Contact = model("contact", contactSchema);
-// categories => category
 
 module.exports = {
   Contact,

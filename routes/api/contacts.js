@@ -12,7 +12,7 @@ const { schemas } = require("../../models");
 
 contacts.get("/", ctrlWrapper(ctrl.getAll));
 
-contacts.get("/:contactId", isValidId, ctrlWrapper(ctrl.getById));
+contacts.get("/:contactId", ctrlWrapper(ctrl.getById));
 
 contacts.post("/", validation(schemas.verifyContact), ctrlWrapper(ctrl.add));
 
@@ -23,6 +23,13 @@ contacts.put(
   isValidId,
   validation(schemas.verifyContact),
   ctrlWrapper(ctrl.updateById)
+);
+
+contacts.patch(
+  "/:contactId",
+  isValidId,
+  validation(schemas.verifyContact),
+  ctrlWrapper(ctrl.updateFavorite)
 );
 
 module.exports = contacts;

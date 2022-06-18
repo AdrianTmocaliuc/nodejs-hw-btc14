@@ -2,13 +2,13 @@ const { Contact } = require("../../models");
 
 const { generateError } = require("../../helpers");
 
-const removeById = async (req, res) => {
+const updateFavorite = async (req, res) => {
   const { contactId } = req.params;
-  const result = await Contact.findByIdAndRemove(contactId);
+  const result = await Contact.findByIdAndUpdate(contactId, req.body);
   if (!result) {
     throw generateError(404);
   }
-  res.json({ message: "Contact deleted" });
+  res.json(result);
 };
 
-module.exports = removeById;
+module.exports = updateFavorite;
