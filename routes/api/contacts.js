@@ -8,7 +8,7 @@ const { ctrlWrapper } = require("../../helpers");
 const { validation, isValidId } = require("../../middlewares");
 
 const { schemas } = require("../../models");
-//middlewares
+//middlewares )
 
 contacts.get("/", ctrlWrapper(ctrl.getAll));
 
