@@ -33,8 +33,13 @@ const verifyContact = Joi.object({
   favorite: Joi.boolean(),
 });
 
+const updateFavorite = Joi.object({
+  favorite: Joi.boolean().required(),
+});
+
 const schemas = {
   verifyContact,
+  updateFavorite,
 };
 const Contact = model("contact", contactSchema);
 

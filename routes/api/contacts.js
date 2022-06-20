@@ -28,7 +28,7 @@ contacts.put(
 contacts.patch(
   "/:contactId/favorite",
   isValidId,
-  validation(schemas.verifyContact),
+  validation(schemas.updateFavorite),
   ctrlWrapper(ctrl.updateFavorite)
 );
 
