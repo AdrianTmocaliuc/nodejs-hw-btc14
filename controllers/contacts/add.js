@@ -1,14 +1,7 @@
-const contacts = require("../../models");
-
-const scheme = require("../../schemas");
+const { Contact } = require("../../models");
 
 const add = async (req, res) => {
-  const { error } = scheme.verifyContact.validate(req.body);
-
-  if (error) {
-    throw generateError(400, error.message);
-  }
-  const result = await contacts.addContact(req.body);
+  const result = await Contact.create(req.body);
   res.status(201).json(result);
 };
 

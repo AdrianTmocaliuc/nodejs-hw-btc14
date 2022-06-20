@@ -1,8 +1,12 @@
-const contacts = require("../../models");
+const { Contact } = require("../../models");
+const { generateError } = require("../../helpers");
 
 const getAll = async (req, res) => {
-  const result = await contacts.listContacts();
-  res.json(result);
+  const result = await Contact.find({}, "-createdAt -updatedAt");
+  if (!result) {
+    throw generateError(404, "missing field favorite");
+  }
+  res.status(201).json(result);
 };
 
 module.exports = getAll;
