@@ -7,7 +7,7 @@ const { contacts: ctrl } = require("../../controllers");
 const { ctrlWrapper } = require("../../helpers");
 const { validation, isValidId } = require("../../middlewares");
 
-const { schemas } = require("../../models");
+const { schemas } = require("../../models/contact");
 //middlewares )
 
 contacts.get("/", ctrlWrapper(ctrl.getAll));

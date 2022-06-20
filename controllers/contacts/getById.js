@@ -1,4 +1,4 @@
-const { Contact } = require("../../models");
+const { Contact } = require("../../models/contact");
 
 const { generateError } = require("../../helpers");
 
@@ -7,7 +7,7 @@ const getById = async (req, res) => {
   // console.log("contactId:", contactId);
 
   const result = await Contact.findById(contactId, "-createdAt -updatedAt");
-  console.log('result:', result);
+  console.log("result:", result);
 
   if (!result) {
     throw generateError(404);
