@@ -32,16 +32,21 @@ const userScheme = Schema(
   { versionKey: false, timestamps: true }
 );
 
-const registerUser = Joi.object({
-  //
-  password: Joi.string().required(),
+const signup = Joi.object({
   email: Joi.string().pattern(emailRegexp).required(),
+  password: Joi.string().required(),
   subscription: Joi.string(),
   token: Joi.string(),
 });
 
+const login = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required(),
+  password: Joi.string().required(),
+});
+
 const schemas = {
-  registerUser,
+  signup,
+  login,
 };
 
 const User = model("user", userScheme);
