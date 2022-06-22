@@ -5,7 +5,7 @@ const router = express.Router();
 const { auth: ctrl } = require("../../controllers");
 
 const { ctrlWrapper } = require("../../helpers");
-const { validation } = require("../../middlewares");
+const { auth, validation } = require("../../middlewares");
 
 const { schemas } = require("../../models/user");
 
@@ -16,8 +16,23 @@ const { schemas } = require("../../models/user");
 4. Logout
 */
 
+//register
 router.post("/signup", validation(schemas.signup), ctrlWrapper(ctrl.signup));
 
-router.post("/login", validation(schemas.login), ctrlWrapper(ctrl.login));
+//signin
+router.get("/login", validation(schemas.login), ctrlWrapper(ctrl.login));
+
+router.get("/current", auth, ctrlWrapper(ctrl.current));
+
+//signout
+router.get("/logout", auth, ctrlWrapper(ctrl.logout));
+
+//update
+router.patch(
+  "/",
+  auth,
+  validation(schemas.updateSub),
+  ctrlWrapper(ctrl.updateSubscription)
+);
 
 module.exports = router;

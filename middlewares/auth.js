@@ -31,13 +31,11 @@ const auth = async (req, res, next) => {
       throw generateError(401);
     }
     const { id } = jwt.verify(token, SECRET_KEY);
-    // if (!id) {
-    //   throw generateError(401);
-    // }
     const user = await User.findById(id);
-    if (!user) {
+    if (!user || !user.token) {
       throw generateError(401);
     }
+
     req.user = user;
     next();
   } catch (error) {
