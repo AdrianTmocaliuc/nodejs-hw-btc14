@@ -21,6 +21,10 @@ const contactSchema = Schema(
       type: Boolean,
       default: false,
     },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    },
   },
   //date,time creating
   { versionKey: false, timestamps: true }
@@ -33,8 +37,13 @@ const verifyContact = Joi.object({
   favorite: Joi.boolean(),
 });
 
+const updateFavorite = Joi.object({
+  favorite: Joi.boolean().required(),
+});
+
 const schemas = {
   verifyContact,
+  updateFavorite,
 };
 const Contact = model("contact", contactSchema);
 
