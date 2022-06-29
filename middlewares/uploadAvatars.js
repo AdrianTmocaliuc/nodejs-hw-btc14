@@ -8,6 +8,9 @@ const multerAvatars = multer.diskStorage({
   filename: (req, file, cb) => {
     cb(null, file.originalname);
   },
+  limits: {
+    //
+  },
 });
 
 // const multerAvatars = multer({dest: 'temp/'})
