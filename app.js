@@ -17,7 +17,6 @@ app.use(express.static("public"));
 
 app.use("/api/users", routers.auth);
 app.use("/api/contacts", routers.contacts);
-app.use("/api/", routers.images);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });

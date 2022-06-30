@@ -8,18 +8,17 @@ const avatarsDir = path.join(__dirname, "../", "../", "public", "avatars");
 const updateAvatars = async (req, res, next) => {
   const { path: tempUpload, filename } = req.file;
   try {
-    // console.log(req.user);
-    const resultUpload = path.join(avatarsDir, filename);
-    const image = path.join("avatars", filename);
-    // const newAvatar = { ...req.body, avatarURL: image };
+    const { _id: id } = req.user;
+
+    // const [extension] = filename.split('.').reverse();
+    // const name = `${id}.${extension}`
+    const name = id + "." + filename;
+    const image = path.join("avatars", name);
+
+    const resultUpload = path.join(avatarsDir, name);
     await fs.rename(tempUpload, resultUpload);
-    await User.findByIdAndUpdate(
-      req.user._id,
-      { avatarURL: image },
-      { new: true }
-    );
-    //   console.log(newAvatar);
-    // await User.create({ ...req.body });
+    await User.findByIdAndUpdate(id, { avatarURL: image }, { new: true });
+
     res.json(image);
   } catch (error) {
     if (error.message("not such file")) {
