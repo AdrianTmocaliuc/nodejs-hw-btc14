@@ -5,7 +5,7 @@ const router = express.Router();
 const { auth: ctrl } = require("../../controllers");
 
 const { ctrlWrapper } = require("../../helpers");
-const { auth, validation } = require("../../middlewares");
+const { auth, validation, uploadAvatars } = require("../../middlewares");
 
 const { schemas } = require("../../models/user");
 
@@ -20,7 +20,7 @@ const { schemas } = require("../../models/user");
 router.post("/signup", validation(schemas.signup), ctrlWrapper(ctrl.signup));
 
 //signin
-router.get("/login", validation(schemas.login), ctrlWrapper(ctrl.login));
+router.post("/login", validation(schemas.login), ctrlWrapper(ctrl.login));
 
 router.get("/current", auth, ctrlWrapper(ctrl.current));
 
@@ -28,6 +28,13 @@ router.get("/current", auth, ctrlWrapper(ctrl.current));
 router.get("/logout", auth, ctrlWrapper(ctrl.logout));
 
 //update
+router.patch(
+  "/avatar",
+  auth,
+  uploadAvatars.single("avatar"),
+  ctrlWrapper(ctrl.updateAvatar)
+);
+
 router.patch(
   "/",
   auth,

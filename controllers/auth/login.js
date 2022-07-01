@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+const gravatar = require("gravatar");
 
 const jwt = require("jsonwebtoken");
 
@@ -11,6 +12,7 @@ const { generateError } = require("../../helpers");
 
 const login = async (req, res) => {
   const { email, password } = req.body;
+  console.log(req.file);
 
   const user = await User.findOne({ email });
   const comparePassword = await bcrypt.compare(password, user.password);
@@ -22,11 +24,13 @@ const login = async (req, res) => {
     id: user._id,
   };
   const token = jwt.sign(payload, SECRET_KEY);
+  const avatarURL = gravatar.url(email);
 
-  await User.findByIdAndUpdate(user._id, { token });
+  await User.findByIdAndUpdate(user._id, { token, avatarURL });
 
   res.json({
     token,
+    avatarURL,
     user: {
       email: user.email,
       subscription: user.subscription,
