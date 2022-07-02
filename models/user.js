@@ -60,8 +60,13 @@ const updateSub = Joi.object({
   subscription: Joi.string().valid("starter", "pro", "business"),
 });
 
+const verifyEmail = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required(),
+});
+
 const schemas = {
   signup,
+  verifyEmail,
   login,
   updateSub,
 };

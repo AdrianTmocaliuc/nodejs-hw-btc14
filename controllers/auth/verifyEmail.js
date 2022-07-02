@@ -2,13 +2,16 @@ const { User } = require("../../models/user");
 
 const { generateError } = require("../../helpers");
 
-const verify = async (res, req, next) => {
+const verifyEmail = async (res, req) => {
+  console.log(req.params);
   const { verificationToken } = req.params;
   const user = await User.findOne({ verificationToken });
 
   if (!user) {
-    throw generateError(404, "User not found");
+    throw generateError(404);
   }
+
+  // console.log(verificationToken);
 
   await User.findByIdAndUpdate(user._id, {
     verify: true,
@@ -19,4 +22,4 @@ const verify = async (res, req, next) => {
   });
 };
 
-module.exports = verify;
+module.exports = verifyEmail;

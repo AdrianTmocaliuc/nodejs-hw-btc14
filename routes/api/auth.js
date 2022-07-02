@@ -19,7 +19,15 @@ const { schemas } = require("../../models/user");
 //register
 router.post("/signup", validation(schemas.signup), ctrlWrapper(ctrl.signup));
 
-router.get("/verify/:verificationToken", ctrlWrapper(ctrl.verify));
+//veification
+router.get("/verify/:verificationToken", ctrlWrapper(ctrl.verifyEmail));
+
+//resend verification
+router.post(
+  "/verify",
+  validation(schemas.verifyEmail, "missing required field email"),
+  ctrlWrapper(ctrl.resendVerifyEmail)
+);
 
 //signin
 router.post("/login", validation(schemas.login), ctrlWrapper(ctrl.login));
