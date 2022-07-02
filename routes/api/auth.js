@@ -19,6 +19,8 @@ const { schemas } = require("../../models/user");
 //register
 router.post("/signup", validation(schemas.signup), ctrlWrapper(ctrl.signup));
 
+router.get("/verify/:verificationToken", ctrlWrapper(ctrl.verify));
+
 //signin
 router.post("/login", validation(schemas.login), ctrlWrapper(ctrl.login));
 

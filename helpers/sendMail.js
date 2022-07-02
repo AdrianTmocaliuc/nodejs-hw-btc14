@@ -4,12 +4,12 @@ require("dotenv").config();
 const { SENDGRYD_API_KEY } = process.env;
 sgMail.setApiKey(SENDGRYD_API_KEY);
 
-const mail = {
-  to: "rivek43387@weepm.com",
-  from: "ieroglifr.per@gmail.com",
-  subject: "New letter from site",
-  html: "<p>New letter from site</p>",
-};
+// const mail = {
+//   to: "rivek43387@weepm.com",
+//   from: "ieroglifr.per@gmail.com",
+//   subject: "New letter from site",
+//   html: "<p>New letter from site</p>",
+// };
 
 const sendMail = async (data) => {
   try {
