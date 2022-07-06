@@ -12,7 +12,6 @@ const { generateError } = require("../../helpers");
 
 const login = async (req, res) => {
   const { email, password } = req.body;
-  console.log(req.file);
 
   const user = await User.findOne({ email });
   const comparePassword = await bcrypt.compare(password, user.password);
