@@ -1,5 +1,4 @@
 const bcrypt = require("bcryptjs");
-// const gravatar = require("gravatar");
 const { v4 } = require("uuid");
 require("dotenv").config();
 
@@ -14,15 +13,12 @@ const signup = async (req, res) => {
     throw generateError(409, "Email in use");
   }
 
-  // console.log(req.body);
   const hashPassword = await bcrypt.hash(password, 7);
-  // const avatarURL = gravatar.url(email);
 
   const verificationToken = v4();
   const result = await User.create({
     ...req.body,
     verificationToken,
-    // avatarURL,
     password: hashPassword,
   });
 
