@@ -12,12 +12,14 @@ const { generateError } = require("../../helpers");
 
 const login = async (req, res) => {
   const { email, password } = req.body;
-  console.log(req.file);
 
   const user = await User.findOne({ email });
   const comparePassword = await bcrypt.compare(password, user.password);
   if (!user || !comparePassword) {
     throw generateError(401, "Email or password is wrong");
+  }
+  if (!user.verify) {
+    throw generateError(401, "Email not verify");
   }
 
   const payload = {

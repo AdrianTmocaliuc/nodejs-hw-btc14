@@ -1,9 +1,10 @@
 const bcrypt = require("bcryptjs");
-// const gravatar = require("gravatar");
+const { v4 } = require("uuid");
+require("dotenv").config();
 
 const { User } = require("../../models/user");
-
-const { generateError } = require("../../helpers");
+const { generateError, sendMail } = require("../../helpers");
+const { PORT = 3000 } = process.env;
 
 const signup = async (req, res) => {
   const { email, password } = req.body;
@@ -12,14 +13,22 @@ const signup = async (req, res) => {
     throw generateError(409, "Email in use");
   }
 
-  // console.log(req.body);
   const hashPassword = await bcrypt.hash(password, 7);
-  // const avatarURL = gravatar.url(email);
+
+  const verificationToken = v4();
   const result = await User.create({
     ...req.body,
-    // avatarURL,
+    verificationToken,
     password: hashPassword,
   });
+
+  const mail = {
+    to: email,
+    subject: "Confirm email",
+    html: `<a target='_blank' href='http://localhost:${PORT}/api/users/verify/${verificationToken}'> Click to confirm your email </a>`,
+  };
+
+  await sendMail(mail);
 
   res.status(201).json({
     user: {

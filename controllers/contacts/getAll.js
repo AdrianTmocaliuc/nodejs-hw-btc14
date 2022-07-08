@@ -4,7 +4,6 @@ const { generateError } = require("../../helpers");
 const getAll = async (req, res) => {
   const { _id } = req.user;
 
-  console.log(req.query);
   const { page = 1, limit = 10, favorite } = req.query;
   const skip = (page - 1) * limit;
 
